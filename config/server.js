@@ -8,7 +8,7 @@ import { dbConnection } from './mongo.js';
 import tareaRoutes from '../src/tasks/tareas.routes.js'
 
 class Server {
-    constructor(){
+    constructor() {
         this.app = express();
         this.port = process.env.PORT;
         this.taskPath = '/storage/v1/task'
@@ -18,15 +18,16 @@ class Server {
         this.routes();
     }
 
-    async connectioDB(){
+    async connectioDB() {
         await dbConnection();
     }
 
     middlewares() {
-        this.app.use(express.urlencoded({ extended: true }))
-        this.app.use(cors())
-        this.app.use(helmet())
-        this.app.use(morgan('dev')) 
+        this.app.use(express.urlencoded({ extended: false }));
+        this.app.use(cors());
+        this.app.use(helmet());
+        this.app.use(express.json());
+        this.app.use(morgan('dev'));
     }
 
     routes() {

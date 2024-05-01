@@ -5,16 +5,15 @@ export const createTask = async (req, res) => {
 
     try {
 
-        const { nombre, descripcion, fechaInicio, fechaCierre, nombreResponsable, estado } = req.body;
+        const nuevaTarea = new Tarea(req.body);
 
-        const tarea = new Tarea({ nombre, descripcion, fechaInicio, fechaCierre, nombreResponsable, estado });
+        await nuevaTarea.save();
 
-        await tarea.save();
-
-        res.status(201).json({ msg: "Task successfully created", tarea })
+        res.status(201).json(nuevaTarea);
     } catch (error) {
-
-        res.status(500).json({ msg: "Error creating tarea" });
+        
+        console.log(error)
+        res.status(400).json({ error: error.message });
     }
 };
 

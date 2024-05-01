@@ -8,8 +8,16 @@ const router = Router();
 
 router.post(
     "/",
+    [
+        check("nombre","Name is required").not().isEmpty(),
+        check("descripcion","Description is required").not().isEmpty(),
+        check("fechaInicio", "Start date is required").not().isEmpty(),
+        check("fechaCierre", "End date is required").not().isEmpty(),
+        check("nombreResponsable", "Name of the responsible is required").not().isEmpty(),
+        validateFields
+    ],
     createTask
-)
+);
 
 router.get(
     "/",
@@ -18,11 +26,19 @@ router.get(
 
 router.put(
     "/:id",
+    [
+        check("id").isMongoId(),
+        check("id").custom(existeTareaById)
+    ],
     updateTask
 )
 
 router.delete(
     "/:id",
+    [
+        check("id").isMongoId(),
+        check("id").custom(existeTareaById)
+    ],
     deleteTask
 )
 
