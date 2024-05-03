@@ -23,7 +23,7 @@ const TareaSchema = mongoose.Schema({
     },
     estado: {
         type: String,
-        enum: ['pendiente', 'completada', 'incompleta', 'cancelada'],
+        enum: ['pendiente', 'terminada', 'cancelada'],
         default: 'pendiente'
     }
 })
